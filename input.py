@@ -14,7 +14,7 @@ def readingOld():
 			return
 	print("Terminating...\n")
 	
-def reading():
+def echo():
 	print("Standard Input:")
 	stringIn = sys.stdin.readline()
 	while stringIn:

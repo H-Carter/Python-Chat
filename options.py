@@ -3,26 +3,26 @@ import argparse
 import getopt
 
 def usage(err):
-	print("usage: input_program.py [-o O] [-t T] [-h]")
-	print("   --> " + str(err))
+	print("usage: messenger.py [-l] <port number> [<server address>]")
+	print(" ==> " + str(err))
 	print("\nTerminating...")
 
-def getOpts():
+def getOptsArgs():
 	try:
-		opts, args = getopt.getopt(sys.argv[1:], 'o:t:h')
+		opts, args = getopt.getopt(sys.argv[1:], 'l')
 	except getopt.GetoptError as err:
 		usage(err)
 		sys.exit()
-	if (args):
-		usage("invalid argument(s) " + str(args))
+	# Check if command line arguments were entered correctly	
+	argc = len(args)
+	if (argc < 1):
+		usage("missing port number")
 		sys.exit()
-	return opts
+	if (argc > 2):
+		usage("too many arguments")
+		sys.exit()
+	if '-l' in args:
+		usage("'-l' must come BEFORE port number")
+		sys.exit()
 		
-def printOpts(opts):
-	optDict = dict(opts)
-	if '-o' in optDict:
-		print("option 1: " + optDict['-o'])
-	if '-t' in optDict:
-		print("option 2: " + optDict['-t'])
-	if '-h' in optDict:
-		print("option 3")
+	return opts, args
