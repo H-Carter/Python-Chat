@@ -1,12 +1,15 @@
 import options
 import server, client
 
-if __name__ == "__main__":
+def show(type, portNum, serverAddre):
+	print("\nMESSENGER " + str(type))
+	print("	- Port Number: " + str(portNum))
+	print("	- Server Address: " + str(serverAddr))
 
-	# Read command line options and arguments
-	# terminates if usage is incorrect
+
+if __name__ == "__main__":
+	# Read/verify command line options and arguments
 	opts, args = options.getOptsArgs()
-	
 	# Store port number/server address
 	portNum = args[0]
 	serverAddr = 'localhost'
@@ -15,24 +18,47 @@ if __name__ == "__main__":
 	
 	# Determine Server or Client
 	if opts:
-		print("\nMESSENGER SERVER")
-		print("	- Port Number: " + str(portNum))
-		print("	- Server Address: " + str(serverAddr))
+		show("SERVER", portNum, serverAddr)
 		# Setup Server
 		sock, addr = server.setup(serverAddr, portNum)
-		# server.getDetails(sock, addr)
+		server.getDetails(sock, addr)
 		
-		# Input and display messages
-		server.receiveMessage(sock)
+		# Start message receiver thread
+		receiver = server.receiveMessage(sock)
+		receiver.start()
 		
-		# Close socket
-		#server.end(sock)
+		# Start message sender thread
+		sender = server.sendMessage(sock)
+		sender.start()
+		
+		# Wait for threads to terminate
+		sender.join()
+		receiver.join()
+		
 	else:
-		print("\nMESSENGER CLIENT")
-		print("	- Port Number: " + str(portNum))
-		print("	- Server Address: " + str(serverAddr))
+		show("CLIENT", portNum, serverAddr)
 		# Setup Client
 		sock = client.setup(serverAddr, portNum)
-		# client.getDetails(sock)
-		# Send messages until standard input terminates
-		client.sendMessage(sock)
+		client.getDetails(sock)
+		
+		# Start message receiver thread
+		receiver = client.receiveMessage(sock)
+		receiver.start()
+		
+		# Start message sender thread
+		sender = client.sendMessage(sock)
+		sender.start()
+		
+		# Wait for threads to terminate
+		sender.join()
+		receiver.join()
+		
+	try:
+		print("Attempting socket shutdown.")
+		sock.shutdown( socket.SHUT_WR )
+		sock.close()
+	except:
+		pass
+	
+	print("\n***THE END***\n")	
+		

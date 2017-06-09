@@ -2,6 +2,7 @@ import sys
 import socket
 
 from receiver import Receiver
+from sender import Sender
 
 def setup(server, port):
 	serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -14,12 +15,16 @@ def setup(server, port):
 	
 def getDetails(sock, addr):
 	print("\nCONNECTION MADE")
-	print("	- sock: " + str(sock))
-	print("	- addr: " + str(addr))
+	#print("	- sock: " + str(sock))
+	#print("	- addr: " + str(addr))
+	
+def sendMessage(sock):
+	sender = Sender(sock)
+	return sender
 
-# TODO: Replace with threaded receiver
 def receiveMessage(sock):
-	Receiver(sock).start()
+	receiver = Receiver(sock)
+	return receiver
 	
 def end(sock):
 	print("CONNECTION TERMINATED: closing server.\n")
