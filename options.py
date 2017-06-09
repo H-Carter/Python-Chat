@@ -1,5 +1,4 @@
 import sys
-import argparse
 import getopt
 
 def usage(err):

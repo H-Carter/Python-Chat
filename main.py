@@ -1,5 +1,4 @@
 import options
-import input
 import server, client
 
 if __name__ == "__main__":
@@ -21,19 +20,19 @@ if __name__ == "__main__":
 		print("	- Server Address: " + str(serverAddr))
 		# Setup Server
 		sock, addr = server.setup(serverAddr, portNum)
-		# Display connection details
 		# server.getDetails(sock, addr)
+		
 		# Input and display messages
-		server.receive(sock)
+		server.receiveMessage(sock)
+		
 		# Close socket
-		server.end(sock)
+		#server.end(sock)
 	else:
 		print("\nMESSENGER CLIENT")
 		print("	- Port Number: " + str(portNum))
 		print("	- Server Address: " + str(serverAddr))
 		# Setup Client
 		sock = client.setup(serverAddr, portNum)
-		# Display connection details
 		# client.getDetails(sock)
 		# Send messages until standard input terminates
 		client.sendMessage(sock)
