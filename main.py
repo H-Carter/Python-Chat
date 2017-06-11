@@ -2,9 +2,9 @@ import options
 import server, client
 
 def show(type, portNum, serverAddre):
-	print("\nMESSENGER " + str(type))
-	print("	- Port Number: " + str(portNum))
-	print("	- Server Address: " + str(serverAddr))
+	print("\nSTARTING MESSENGER " + str(type))
+	print(" - Port Number: " + str(portNum))
+	print(" - Server Address: " + str(serverAddr))
 
 
 if __name__ == "__main__":

@@ -13,6 +13,5 @@ class Sender ( threading.Thread ):
 			if stringIn:
 				self.socket.send(stringIn.encode())
 			else:
-				print("Sending empty message to terminate sender thread and close socket")
-				self.socket.send(''.encode())
+				self.socket.send('EXITING'.encode())
 				os._exit( 0 )
