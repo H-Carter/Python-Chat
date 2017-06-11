@@ -18,8 +18,8 @@ if __name__ == "__main__":
 	
 	# Determine Server or Client
 	if opts:
-		show("SERVER", portNum, serverAddr)
 		# Setup Server
+		show("SERVER", portNum, serverAddr)
 		sock, addr = server.setup(serverAddr, portNum)
 		server.getDetails(sock, addr)
 		
@@ -36,8 +36,8 @@ if __name__ == "__main__":
 		receiver.join()
 		
 	else:
-		show("CLIENT", portNum, serverAddr)
 		# Setup Client
+		show("CLIENT", portNum, serverAddr)
 		sock = client.setup(serverAddr, portNum)
 		client.getDetails(sock)
 		

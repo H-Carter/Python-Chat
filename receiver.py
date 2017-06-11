@@ -9,15 +9,14 @@ class Receiver( threading.Thread ):
 			
 	def run(self):
 		while True:
-			print("still in receiver loop")
 			try:
 				msg_bytes = self.socket.recv(1024)
 			except:
 				print("Receiving error. Exiting(sys.exit()) receiving thread.")
 				sys.exit()
-			if len(msg_bytes):
-				print(" ==> " + msg_bytes.decode())
-				msg_bytes = self.socket.recv(1024)
+			message = msg_bytes.decode()
+			if len(message):
+				print(" ==> " + message)
 			else:
 				print("No bytes received. Exiting(os._exit()) receiving thread.")
 				self.client_socket.close()
