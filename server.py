@@ -1,6 +1,9 @@
 import sys
 import socket
 
+from receiver import Receiver
+from sender import Sender
+
 def setup(server, port):
 	serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -12,14 +15,16 @@ def setup(server, port):
 	
 def getDetails(sock, addr):
 	print("\nCONNECTION MADE")
-	print("	- sock: " + str(sock))
-	print("	- addr: " + str(addr))
+	#print("	- sock: " + str(sock))
+	#print("	- addr: " + str(addr))
 	
-def receive(sock):
-	msg_bytes= sock.recv(1024)
-	while(msg_bytes):
-		print("Client: " + msg_bytes.decode())
-		msg_bytes= sock.recv(1024)
+def sendMessage(sock):
+	sender = Sender(sock)
+	return sender
+
+def receiveMessage(sock):
+	receiver = Receiver(sock)
+	return receiver
 	
 def end(sock):
 	print("CONNECTION TERMINATED: closing server.\n")

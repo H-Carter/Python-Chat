@@ -1,6 +1,9 @@
 import sys
 import socket
-	
+
+from receiver import Receiver
+from sender import Sender
+
 def setup(server, port):
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	try:
@@ -13,14 +16,12 @@ def setup(server, port):
 	
 def getDetails(sock):
 	print("\nCONNECTION MADE")
-	print("	- sock: " + str(sock))
+	#print("	- sock: " + str(sock))
 	
 def sendMessage(sock):
-	# Continuosly read from standard input
-	print("\nBegin typing:\n")
-	stringIn = sys.stdin.readline()
-	while stringIn:
-		print(" ==> " + stringIn)
-		sock.send(stringIn.encode())
-		stringIn = sys.stdin.readline()
-	print("CONNECTION TERMINATED: closing client.\n")
+	sender = Sender(sock)
+	return sender
+	
+def receiveMessage(sock):
+	receiver = Receiver(sock)
+	return receiver
