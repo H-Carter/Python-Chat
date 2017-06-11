@@ -2,7 +2,7 @@ import sys
 import getopt
 
 def usage(err):
-	print("usage: messenger.py [-l] <port number> [<server address>]")
+	print("usage: main.py [-l] <port number> [<server address>]")
 	print(" ==> " + str(err))
 	print("\nTerminating...")
 
