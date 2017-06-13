@@ -1,7 +1,7 @@
 import options
 import server, client
 
-def show(type, portNum, serverAddre):
+def show(type, portNum, serverAddr):
 	print("\nSTARTING MESSENGER " + str(type))
 	print(" - Port Number: " + str(portNum))
 	print(" - Server Address: " + str(serverAddr))
