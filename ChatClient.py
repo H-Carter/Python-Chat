@@ -64,7 +64,7 @@ if __name__ == "__main__":
 	
 	# Setup Client Messenger Socket
 	sock = setup(serverAddr, serverPort)
-	socketDetails(sock)
+	#socketDetails(sock)
 	
 	# Start message receiver thread
 	receiver = receiveMessage(sock)
@@ -79,10 +79,10 @@ if __name__ == "__main__":
 	receiver.join()
 		
 	try:
-		print("Attempting socket shutdown.")
+		print("ATTEMPTING SHUTDOWN")
 		sock.shutdown( socket.SHUT_WR )
 		sock.close()
 	except:
 		pass
 	
-	print("\n***THE END***\n")	
+	print("\nTERMINATING PROGRAM")	

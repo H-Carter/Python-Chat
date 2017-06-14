@@ -31,6 +31,9 @@ def receiveMessage(sock):
 	
 if __name__ == "__main__":
 	# Store port number/server address
+	if len(sys.argv) > 2:
+		usage("Too many arguments")
+		sys.exit()
 	try:
 		listenPort = sys.argv[1]
 	except:
@@ -48,14 +51,13 @@ if __name__ == "__main__":
 	while True:
 		# Accept new socket connection
 		sock, addr= serversocket.accept()
-		socketDetails(sock, addr)
+		#socketDetails(sock, addr)
+		name = str(addr[1])
+		print(name + " HAS CONNECTED")
 		
 		# Add new connection to connection list
 		connections.sockets.append(sock)
 		
 		# Start new connection relay thread
-		Relay(sock, addr).start()
-	
-	# Wait for thread to terminate
-	receiver.join()
+		Relay(sock, addr, name).start()
 
