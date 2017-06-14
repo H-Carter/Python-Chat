@@ -11,7 +11,14 @@ class Sender ( threading.Thread ):
 		while True:
 			stringIn = sys.stdin.readline()
 			if stringIn:
-				self.socket.send(stringIn.encode())
+				try:
+					self.socket.send(stringIn.encode())
+				except:
+					print("SOCKET SENDING ERROR - SHUTTING DOWN")
+					os._exit(0)
 			else:
-				self.socket.send('EXITING'.encode())
+				try:
+					self.socket.send('EXITING'.encode())
+				except:
+					pass
 				os._exit( 0 )

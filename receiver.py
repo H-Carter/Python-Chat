@@ -12,10 +12,11 @@ class Receiver( threading.Thread ):
 			try:
 				msg_bytes = self.socket.recv(1024)
 			except:
-				os._exit(0)
-			message = msg_bytes.decode()
-			if len(message):
-				print(" ==> " + message)
+				sys.exit(0)
+			if len(msg_bytes):
+				message = msg_bytes.decode()
+				print(message)
 			else:
 				print("No bytes received. Exiting(os._exit()) receiving thread.")
+				self.socket.close()
 				os._exit(0)
